@@ -1,4 +1,8 @@
 package Bills;
 
-public abstract class WaterBillProvider {
+public class WaterBillProvider extends BillProvider{
+    @Override
+    public boolean deduct(Bill bill) {
+        return false;
+    }
 }
