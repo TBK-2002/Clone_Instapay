@@ -2,6 +2,8 @@ package Bills;
 
 import Accounts.Account;
 
+import java.util.HashMap;
+
 public class GasBill extends Bill{
 
     public GasBill(double amount, BillProvider provider, Account account) {
@@ -9,7 +11,7 @@ public class GasBill extends Bill{
     }
 
     @Override
-    public String getDeductionData() {
+    public HashMap<String,String> getDeductionData() {
         return null;
     }
 }

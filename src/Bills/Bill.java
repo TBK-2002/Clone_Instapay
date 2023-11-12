@@ -2,6 +2,8 @@ package Bills;
 
 import Accounts.Account;
 
+import java.util.HashMap;
+
 public abstract class Bill {
     private double amount;
     private BillProvider provider;
@@ -13,5 +15,5 @@ public abstract class Bill {
         this.account = account;
     }
 
-    public abstract String getDeductionData();
+    public abstract HashMap<String,String> getDeductionData();
 }
