@@ -2,6 +2,10 @@ package Bills;
 
 import Accounts.Account;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
+
 public  class ElectricityBillProvider extends BillProvider {
     public ElectricityBillProvider(String address, Account account, BillProviderType providerType) {
         super(address, account, providerType);
@@ -23,6 +27,22 @@ public  class ElectricityBillProvider extends BillProvider {
         else{
             System.out.println("The transaction was not successful. Please check your balance and try again.");
             return false;
+        }
+    }
+    @Override
+    public List<String> getRequiredData() {
+        return List.of("electronicPaymentCode");
+    }
+    @Override
+    public double inquireAmount(HashMap<String, String> data) {
+        try{
+            // Reach the bill provider to inquire the amount
+            // return inquire(address, data["electronicPaymentCode"]);
+            Random rand = new Random();
+            return rand.nextFloat() * 1000;
+        } catch (Exception e) {
+            System.out.println("Error happened. Please Check the electronicPaymentCode and try again.");
+            throw e;
         }
     }
 }

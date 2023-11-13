@@ -2,6 +2,9 @@ package Bills;
 
 import Accounts.Account;
 
+import java.util.HashMap;
+import java.util.List;
+
 public abstract class BillProvider {
     public BillProvider(String address, Account account, BillProviderType providerType) {
         this.address = address;
@@ -38,4 +41,18 @@ public abstract class BillProvider {
     public void setBillProviderType(BillProviderType providerType) {
         this.providerType = providerType;
     }
+    public abstract double inquireAmount(HashMap<String, String> data);
+    public Bill createBill(Account account, HashMap<String, String> data){
+        double amount;
+        try {
+            amount = inquireAmount(data);
+        } catch (Exception e) {
+            return null;
+        }
+
+        Bill bill = new Bill(amount, this, account, data);
+        return bill;
+    }
+    public abstract List<String> getRequiredData();
+
 }

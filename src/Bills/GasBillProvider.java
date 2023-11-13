@@ -2,6 +2,9 @@ package Bills;
 
 import Accounts.Account;
 
+import java.util.HashMap;
+import java.util.List;
+
 public  class GasBillProvider extends BillProvider{
     public GasBillProvider(String address, Account account, BillProviderType providerType) {
         super(address, account, providerType);
@@ -23,6 +26,21 @@ public  class GasBillProvider extends BillProvider{
         else{
             System.out.println("The transaction was not successful. Please check your balance and try again.");
             return false;
+        }
+    }
+    @Override
+    public List<String> getRequiredData() {
+        return List.of("CRN");
+    }
+    @Override
+    public double inquireAmount(HashMap<String, String> data) {
+        try{
+            // Reach the bill provider to inquire the amount
+            // return inquire(address, data["CRN"]);
+            return 1000;
+        } catch (Exception e) {
+            System.out.println("Error happened. Please Check the CRN and try again.");
+            throw e;
         }
     }
 }

@@ -1,6 +1,7 @@
 import Accounts.Account;
 import Accounts.BankAccount;
 import Accounts.WalletAccount;
+import Bills.Bill;
 import Bills.BillProvider;
 import Bills.BillProviderType;
 import Database.Database;
@@ -252,7 +253,40 @@ public class Manager {
             }
             i++;
         }
-
+        HashMap<String, String> data = new HashMap<>();
+        for(String requiredData : provider.getRequiredData()){
+            System.out.print("Enter " + requiredData + " : ");
+            String value = input.nextLine();
+            data.put(requiredData, value);
+        }
+        Bill bill = provider.createBill(loggerdInAccount, data);
+        if(bill == null){
+            System.out.println("Too many wrong data");
+            return;
+        }
+        System.out.println("Your bill amount is : " + bill.getAmount());
+        System.out.print("Enter 1 to confirm : ");
+        System.out.print("Enter 2 to cancel : ");
+        choice = Integer.parseInt(input.nextLine());
+        err = 0;
+        while ((choice > 2 || choice < 1) && err < 3){
+            System.out.println("Wrong choice , try again : ");
+            choice = Integer.parseInt(input.nextLine());
+            err++;
+        }
+        if(choice > 2 || choice < 1){
+            System.out.println("Too many wrong choices");
+            return;
+        }
+        if(choice == 2){
+            System.out.println("Bill canceled");
+            return;
+        }
+        if(provider.deduct(bill)){
+            System.out.println("Bill paid successfully");
+        }else{
+            System.out.println("Bill payment failed");
+        }
 
     }
     private void unLoggedInMenu(){
