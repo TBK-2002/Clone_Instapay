@@ -10,15 +10,24 @@ public class Wallet implements ServiceProviderBehavior {
     public boolean transfer(Account from, Account to, String address, double amount) {
         String mobileNumber = to.getVerficicationData().get("mobileNumber");
         double  currBalance = inquire(from);
-        if(amount > currBalance){
-           System.out.println("Insufficient Balance");
-           return false;
-        }
+
+
         if(to.getVerficicationData().containsKey("accountNumber")){
             System.out.println("Error: Cannot transfer from Wallet to Bank Account");
             return false;
         }
+        else if(to.getVerficicationData().containsKey("providerAccountNumber")){
+            if(amount > currBalance){
+                System.out.println("Insufficient Balance");
+                return false;
+            }
+            return true;
+        }
         else{
+            if(amount > currBalance){
+                System.out.println("Insufficient Balance");
+                return false;
+            }
             System.out.println("Transfering to Wallet with mobile number: " + mobileNumber);
             return true;
         }

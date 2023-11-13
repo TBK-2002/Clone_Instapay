@@ -21,7 +21,7 @@ public class Bank implements ServiceProviderBehavior {
         }
         else{
            System.out.println("Transfering to Wallet with mobile number: " + to.getVerficicationData().get("mobileNumber"));
-           return false;
+           return true;
         }
 
     }

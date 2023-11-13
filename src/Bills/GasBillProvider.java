@@ -4,6 +4,7 @@ import Accounts.Account;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public  class GasBillProvider extends BillProvider{
     public GasBillProvider(String address, Account account, BillProviderType providerType) {
@@ -37,7 +38,8 @@ public  class GasBillProvider extends BillProvider{
         try{
             // Reach the bill provider to inquire the amount
             // return inquire(address, data["CRN"]);
-            return 1000;
+            Random rand = new Random();
+            return rand.nextFloat() * 1000;
         } catch (Exception e) {
             System.out.println("Error happened. Please Check the CRN and try again.");
             throw e;
