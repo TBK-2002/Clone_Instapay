@@ -9,4 +9,11 @@ public abstract class BillProvider {
 
     public abstract boolean deduct(Bill bill);
 
+    public BillProviderType getBillProviderType() {
+        return providerType;
+    }
+
+    public void setBillProviderType(BillProviderType providerType) {
+        this.providerType = providerType;
+    }
 }
