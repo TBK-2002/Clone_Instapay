@@ -198,30 +198,35 @@ public class Manager {
     private void payBill(){
         System.out.println("_________Pay Bill_________");
         System.out.println("Choose the bill type : ");
-        System.out.println("1. Electricity Bill");
-        System.out.println("2. Water Bill");
-        System.out.println("3. Gas Bill");
+        int i = 1;
+        for(BillProviderType billProviderType : BillProviderType.values()){
+            System.out.println(i + ". " + billProviderType);
+            i++;
+        }
         System.out.print("Enter your choice : ");
         int choice = Integer.parseInt(input.nextLine());
         int err = 0;
-        while ((choice > 3 || choice < 1) && err < 3){
+        while ((choice > i || choice < 1) && err < 3){
             System.out.println("Wrong choice , try again : ");
             choice = Integer.parseInt(input.nextLine());
             err++;
         }
-        if(choice > 3 || choice < 1){
+        if(choice > i || choice < 1){
             System.out.println("Too many wrong choices");
             return;
         }
+        i = 1;
         BillProviderType type = null;
-        switch (choice){
-            case 1: type = BillProviderType.ELECTRICITY; break;
-            case 2: type = BillProviderType.WATER; break;
-            case 3: type = BillProviderType.GAS; break;
+        for(BillProviderType billProviderType : BillProviderType.values()){
+            if(i == choice){
+                type = billProviderType;
+                break;
+            }
+            i++;
         }
         HashMap<String, BillProvider> providers = dbManager.getBillProviders(type);
         System.out.println("Choose your provider : ");
-        int i = 1;
+        i = 1;
         for(String providerName : providers.keySet()){
             System.out.println(i + ". " + providerName);
             i++;
