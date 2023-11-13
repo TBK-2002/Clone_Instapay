@@ -26,7 +26,7 @@ public class InMemoryDatabase implements Database {
 
     @Override
     public void addBillProvider(BillProvider billProvider) {
-        billProviders.put(billProvider.toString(),billProvider);
+        billProviders.put(billProvider.getAddress(),billProvider);
     }
 
 
@@ -44,7 +44,7 @@ public class InMemoryDatabase implements Database {
 
     @Override
     public void addServiceProvider(ServiceProvider serviceProvider) {
-        serviceProviders.put(serviceProvider.address,serviceProvider);
+        serviceProviders.put(serviceProvider.getAddress(),serviceProvider);
     }
 
     @Override
