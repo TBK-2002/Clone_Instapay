@@ -1,7 +1,11 @@
 package Bills;
 
-public  class GasBillProvider extends BillProvider{
+import Accounts.Account;
 
+public  class GasBillProvider extends BillProvider{
+    public GasBillProvider(String address, Account account, BillProviderType providerType) {
+        super(address, account, providerType);
+    }
     @Override
     public boolean deduct(Bill bill) {
         if(bill.getAccount().getProvider().transfer(bill.getAccount(), super.getAccount(), bill.getAmount())){

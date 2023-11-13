@@ -1,6 +1,11 @@
 package Bills;
 
+import Accounts.Account;
+
 public class WaterBillProvider extends BillProvider{
+    public WaterBillProvider(String address, Account account, BillProviderType providerType) {
+        super(address, account, providerType);
+    }
     @Override
     public boolean deduct(Bill bill) {
         if(bill.getAccount().getProvider().transfer(bill.getAccount(), super.getAccount(), bill.getAmount())){

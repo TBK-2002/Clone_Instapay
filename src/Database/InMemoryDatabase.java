@@ -1,8 +1,11 @@
 package Database;
 
 import Accounts.Account;
+import Accounts.BillProviderAccount;
 import Bills.BillProvider;
 import Bills.BillProviderType;
+import Bills.ElectricityBillProvider;
+import Bills.GasBillProvider;
 import Services.*;
 
 import java.util.HashMap;
@@ -40,8 +43,15 @@ public class InMemoryDatabase implements Database {
         serviceProviders.put(HSBC.getAddress(),HSBC);
         serviceProviders.put(Ahly.getAddress(),Ahly);
         serviceProviders.put(Misr.getAddress(),Misr);
-
-
+        Account northDeltaAccount = new BillProviderAccount(122,"0123456789","northDelta","123456",CIB);
+        BillProvider northDelta = new ElectricityBillProvider("northDelta",northDeltaAccount,BillProviderType.ELECTRICITY);
+        Account southDeltaAccount = new BillProviderAccount(123,"0123456789","southDelta","123456",CIB);
+        BillProvider southDelta = new ElectricityBillProvider("southDelta",southDeltaAccount,BillProviderType.ELECTRICITY);
+        Account petrojet = new BillProviderAccount(124,"0123456789","northCairo","123456",CIB);
+        BillProvider northCairo = new GasBillProvider("northCairo",petrojet,BillProviderType.GAS);
+        billProviders.put(northDelta.getAddress(),northDelta);
+        billProviders.put(southDelta.getAddress(),southDelta);
+        billProviders.put(northCairo.getAddress(),northCairo);
     }
     @Override
     public Account getAccount(String username) {

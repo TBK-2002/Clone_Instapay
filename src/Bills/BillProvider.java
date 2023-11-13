@@ -3,6 +3,12 @@ package Bills;
 import Accounts.Account;
 
 public abstract class BillProvider {
+    public BillProvider(String address, Account account, BillProviderType providerType) {
+        this.address = address;
+        this.account = account;
+        this.providerType = providerType;
+    }
+
     protected String address;
     private Account account;
     private BillProviderType providerType;
