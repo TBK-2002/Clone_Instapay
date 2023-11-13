@@ -16,4 +16,16 @@ public abstract class Bill {
     }
 
     public abstract HashMap<String,String> getDeductionData();
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public BillProvider getProvider() {
+        return provider;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
 }
