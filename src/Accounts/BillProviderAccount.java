@@ -7,8 +7,13 @@ import java.util.HashMap;
 
 public class BillProviderAccount extends Account {
     private String accountNumber;
-    public BillProviderAccount(int accountId, String mobileNumber, String userName, String password, ServiceProvider provider) {
+    HashMap<String,String> verficicationData ;
+    public BillProviderAccount(int accountId, String mobileNumber, String userName, String password, ServiceProvider provider,String accountNumber){
         super(accountId, mobileNumber, userName, password, provider);
+        this.accountNumber = accountNumber;
+        verficicationData = new HashMap<>();
+        verficicationData.put("mobileNumber",this.mobileNumber);
+        verficicationData.put("providerAccountNumber",this.accountNumber);
     }
 
     public String getAccountNumber() {
@@ -21,6 +26,6 @@ public class BillProviderAccount extends Account {
 
     @Override
     public HashMap<String, String> getVerficicationData() {
-        return null;
+        return verficicationData;
     }
 }
