@@ -10,8 +10,8 @@ public class ServiceProvider {
         this.serviceProviderBehavior = serviceProviderBehavior;
         this.serviceProviderType = serviceProviderType;
     }
-    public void transfer(Account from, Account to, String address, double amount){
-        serviceProviderBehavior.transfer(from,to,address,amount);
+    public boolean transfer(Account from, Account to, String address, double amount){
+        return serviceProviderBehavior.transfer(from,to,address,amount);
     }
     public double inquire(Account acc){
         return serviceProviderBehavior.inquire(acc);
