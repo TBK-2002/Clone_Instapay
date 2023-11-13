@@ -57,4 +57,22 @@ public class InMemoryDatabase implements Database {
         }
         return serviceProviders1;
     }
+
+    @Override
+    public Account getAccountBankNumber(String bankNumber) {
+        for (Map.Entry<String,Account> entry: accounts.entrySet()){
+            if(entry.getValue().getVerficicationData().get("accountNumber").equals(bankNumber))
+                return entry.getValue();
+        }
+        return null;
+    }
+
+    @Override
+    public Account getAccountMobileNumber(String mobileNumber) {
+        for (Map.Entry<String,Account> entry: accounts.entrySet()){
+            if(entry.getValue().getVerficicationData().get("mobileNumber").equals(mobileNumber))
+                return entry.getValue();
+        }
+        return null;
+    }
 }

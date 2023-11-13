@@ -16,4 +16,6 @@ public interface Database {
     public HashMap<String,BillProvider> getBillProviders(BillProviderType billProviderType);
     public void addServiceProvider(ServiceProvider serviceProvider);
     public HashMap<String,ServiceProvider> getServiceProviders(ServiceProviderType serviceProviderType);
+    public Account getAccountBankNumber(String bankNumber);
+    public Account getAccountMobileNumber(String mobileNumber);
 }
