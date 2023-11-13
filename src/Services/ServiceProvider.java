@@ -2,7 +2,7 @@ package Services;
 import Accounts.Account;
 
 public class ServiceProvider {
-    public String address;
+    private String address;
     private ServiceProviderBehavior serviceProviderBehavior;
     public ServiceProviderType serviceProviderType;
     ServiceProvider(String address , ServiceProviderType serviceProviderType , ServiceProviderBehavior serviceProviderBehavior){
