@@ -3,8 +3,7 @@ package Database;
 import Accounts.Account;
 import Bills.BillProvider;
 import Bills.BillProviderType;
-import Services.ServiceProvider;
-import Services.ServiceProviderType;
+import Services.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +13,33 @@ public class InMemoryDatabase implements Database {
     protected HashMap<String,ServiceProvider> serviceProviders;
     protected HashMap<String,BillProvider>billProviders;
 
+
+    public InMemoryDatabase() {
+        this.accounts = new HashMap<>();
+        this.serviceProviders = new HashMap<>();
+        this.billProviders = new HashMap<>();
+        ServiceProviderBehavior serviceProviderBehavior1 = new Wallet();
+        ServiceProviderBehavior serviceProviderBehavior2 = new Bank();
+
+        ServiceProvider vodafoneCash = new ServiceProvider("VodafoneCash.API", ServiceProviderType.WALLET,serviceProviderBehavior1);
+        ServiceProvider fawry = new ServiceProvider("Fawry.API", ServiceProviderType.WALLET,serviceProviderBehavior1);
+        ServiceProvider orangeCash = new ServiceProvider("OrangeCash.API", ServiceProviderType.WALLET,serviceProviderBehavior1);
+        ServiceProvider CIBWallet = new ServiceProvider(" CIBWallet.API", ServiceProviderType.WALLET,serviceProviderBehavior1);
+
+        ServiceProvider CIB = new ServiceProvider("CIB.API", ServiceProviderType.BANK,serviceProviderBehavior2);
+        ServiceProvider HSBC = new ServiceProvider("HSBC.API", ServiceProviderType.BANK,serviceProviderBehavior2);
+        ServiceProvider Ahly = new ServiceProvider("Ahly.API", ServiceProviderType.BANK,serviceProviderBehavior2);
+        ServiceProvider Misr = new ServiceProvider("Misr.API", ServiceProviderType.BANK,serviceProviderBehavior2);
+
+        serviceProviders.put(vodafoneCash.getAddress(),vodafoneCash);
+        serviceProviders.put(fawry.getAddress(),fawry);
+        serviceProviders.put(orangeCash.getAddress(),orangeCash);
+        serviceProviders.put(CIBWallet.getAddress(),CIBWallet);
+        serviceProviders.put(CIB.getAddress(),CIB);
+        serviceProviders.put(HSBC.getAddress(),HSBC);
+        serviceProviders.put(Ahly.getAddress(),Ahly);
+        serviceProviders.put(Misr.getAddress(),Misr);
+    }
     @Override
     public Account getAccount(String username) {
         return accounts.get(username);

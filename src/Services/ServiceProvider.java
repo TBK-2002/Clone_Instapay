@@ -8,12 +8,12 @@ public class ServiceProvider {
     private ServiceProviderBehavior serviceProviderBehavior;
     public ServiceProviderType serviceProviderType;
 
-    ServiceProvider(String address , ServiceProviderType serviceProviderType , ServiceProviderBehavior serviceProviderBehavior){
+    public ServiceProvider(String address , ServiceProviderType serviceProviderType , ServiceProviderBehavior serviceProviderBehavior){
         this.address = address;
         this.serviceProviderBehavior = serviceProviderBehavior;
         this.serviceProviderType = serviceProviderType;
     }
-    public boolean transfer(Account from, Account to, String address, double amount){
+    public boolean transfer(Account from, Account to, double amount){
         return serviceProviderBehavior.transfer(from,to,address,amount);
     }
     public double inquire(Account acc){
