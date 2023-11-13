@@ -24,34 +24,35 @@ public class InMemoryDatabase implements Database {
 
         ServiceProviderBehavior serviceProviderBehavior1 = new Wallet();
         ServiceProviderBehavior serviceProviderBehavior2 = new Bank();
-        ServiceProvider vodafoneCash = new ServiceProvider("VodafoneCash.API", ServiceProviderType.WALLET,serviceProviderBehavior1);
-        ServiceProvider fawry = new ServiceProvider("Fawry.API", ServiceProviderType.WALLET,serviceProviderBehavior1);
-        ServiceProvider orangeCash = new ServiceProvider("OrangeCash.API", ServiceProviderType.WALLET,serviceProviderBehavior1);
-        ServiceProvider CIBWallet = new ServiceProvider("CIBWallet.API", ServiceProviderType.WALLET,serviceProviderBehavior1);
-        ServiceProvider CIB = new ServiceProvider("CIB.API", ServiceProviderType.BANK,serviceProviderBehavior2);
-        ServiceProvider HSBC = new ServiceProvider("HSBC.API", ServiceProviderType.BANK,serviceProviderBehavior2);
-        ServiceProvider Ahly = new ServiceProvider("Ahly.API", ServiceProviderType.BANK,serviceProviderBehavior2);
-        ServiceProvider Misr = new ServiceProvider("Misr.API", ServiceProviderType.BANK,serviceProviderBehavior2);
-        serviceProviders.put(vodafoneCash.getAddress(),vodafoneCash);
-        serviceProviders.put(fawry.getAddress(),fawry);
-        serviceProviders.put(orangeCash.getAddress(),orangeCash);
-        serviceProviders.put(CIBWallet.getAddress(),CIBWallet);
-        serviceProviders.put(CIB.getAddress(),CIB);
-        serviceProviders.put(HSBC.getAddress(),HSBC);
-        serviceProviders.put(Ahly.getAddress(),Ahly);
-        serviceProviders.put(Misr.getAddress(),Misr);
+        ServiceProvider vodafoneCash = new ServiceProvider("Vodafone Cash","VodafoneCash.API", ServiceProviderType.WALLET,serviceProviderBehavior1);
+        ServiceProvider fawry = new ServiceProvider("Fawry","Fawry.API", ServiceProviderType.WALLET,serviceProviderBehavior1);
+        ServiceProvider orangeCash = new ServiceProvider("Orange Cash","OrangeCash.API", ServiceProviderType.WALLET,serviceProviderBehavior1);
+        ServiceProvider CIBWallet = new ServiceProvider("CIB Wallet","CIBWallet.API", ServiceProviderType.WALLET,serviceProviderBehavior1);
+        ServiceProvider CIB = new ServiceProvider("CIB","CIB.API", ServiceProviderType.BANK,serviceProviderBehavior2);
+        ServiceProvider HSBC = new ServiceProvider("HSBC","HSBC.API", ServiceProviderType.BANK,serviceProviderBehavior2);
+        ServiceProvider Ahly = new ServiceProvider("Ahly Bank","Ahly.API", ServiceProviderType.BANK,serviceProviderBehavior2);
+        ServiceProvider Misr = new ServiceProvider("Misr Bank","Misr.API", ServiceProviderType.BANK,serviceProviderBehavior2);
+        addServiceProvider(vodafoneCash);
+        addServiceProvider(fawry);
+        addServiceProvider(orangeCash);
+        addServiceProvider(CIBWallet);
+        addServiceProvider(CIB);
+        addServiceProvider(HSBC);
+        addServiceProvider(Ahly);
+        addServiceProvider(Misr);
         Account northDeltaAccount = new BillProviderAccount(122,"0123456789","northDelta","123456",CIB, "123456");
-        BillProvider northDelta = new ElectricityBillProvider("northDelta",northDeltaAccount,BillProviderType.ELECTRICITY);
+        BillProvider northDelta = new ElectricityBillProvider("northDelta","northDelta",northDeltaAccount,BillProviderType.ELECTRICITY);
         Account southDeltaAccount = new BillProviderAccount(123,"0123456789","southDelta","123456",CIB, "12345");
-        BillProvider southDelta = new ElectricityBillProvider("southDelta",southDeltaAccount,BillProviderType.ELECTRICITY);
+        BillProvider southDelta = new ElectricityBillProvider("southDelta","southDelta",southDeltaAccount,BillProviderType.ELECTRICITY);
         Account petrojet = new BillProviderAccount(124,"0123456789","northCairo","123456",CIB, "1234");
-        BillProvider northCairo = new GasBillProvider("northCairo",petrojet,BillProviderType.GAS);
+        BillProvider northCairo = new GasBillProvider("northCairo","northCairo",petrojet,BillProviderType.GAS);
         Account aquaDelta = new BillProviderAccount(124,"0123456789","northCairo","123456",CIB, "1234");
-        BillProvider southSinai = new WaterBillProvider("southSinai",aquaDelta,BillProviderType.WATER);
-        billProviders.put(northDelta.getAddress(),northDelta);
-        billProviders.put(southDelta.getAddress(),southDelta);
-        billProviders.put(northCairo.getAddress(),northCairo);
-        billProviders.put(southSinai.getAddress(),southSinai);
+        BillProvider southSinai = new WaterBillProvider("southSinai","southSinai",aquaDelta,BillProviderType.WATER);
+        addBillProvider(northDelta);
+        addBillProvider(southDelta);
+        addBillProvider(northCairo);
+        addBillProvider(southSinai);
+
     }
     @Override
     public Account getAccount(String username) {
@@ -65,7 +66,7 @@ public class InMemoryDatabase implements Database {
 
     @Override
     public void addBillProvider(BillProvider billProvider) {
-        billProviders.put(billProvider.getAddress(),billProvider);
+        billProviders.put(billProvider.getName(),billProvider);
     }
 
 
@@ -83,7 +84,7 @@ public class InMemoryDatabase implements Database {
 
     @Override
     public void addServiceProvider(ServiceProvider serviceProvider) {
-        serviceProviders.put(serviceProvider.getAddress(),serviceProvider);
+        serviceProviders.put(serviceProvider.getName(),serviceProvider);
     }
 
     @Override

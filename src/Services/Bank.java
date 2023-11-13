@@ -18,8 +18,9 @@ public class Bank implements ServiceProviderBehavior {
         if(to.getVerficicationData().containsKey("accountNumber")){
            System.out.println("Transfering to Bank Account with account number: " + accountNumber);
            return true;
-        }
-        else{
+        }else if(to.getVerficicationData().containsKey("providerAccountNumber")){
+            return true;
+        }else{
            System.out.println("Transfering to Wallet with mobile number: " + to.getVerficicationData().get("mobileNumber"));
            return true;
         }

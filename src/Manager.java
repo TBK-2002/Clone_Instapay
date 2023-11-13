@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class Manager {
     private Database dbManager;
     private Account loggerdInAccount;
-    
+
     private Scanner input;
     public Manager(){
         dbManager = new InMemoryDatabase();
@@ -73,12 +73,15 @@ public class Manager {
             return null;
         }
         System.out.println("Choose type of account : ");
-        System.out.println("1. Bank Account");
-        System.out.println("2. Wallet");
+        int i = 1;
+        for(ServiceProviderType serviceProviderType : ServiceProviderType.values()){
+            System.out.println(i + ". " + serviceProviderType);
+            i++;
+        }
         System.out.print("Enter your choice : ");
         int choice = Integer.parseInt(input.nextLine());
         err = 0;
-        while ((choice > 2 || choice < 1) && err < 3){
+        while ((choice > i || choice < 1) && err < 3){
             System.out.println("Wrong choice , try again : ");
             choice = Integer.parseInt(input.nextLine());
             err++;
@@ -89,20 +92,17 @@ public class Manager {
         }
         ServiceProviderType type = null ;
         String BankAccountNumber = null;
-        if(choice == 1) {
-            type = ServiceProviderType.BANK;
-            System.out.print("Enter your bank account number : ");
-            BankAccountNumber = input.nextLine();
-            if(dbManager.getAccountBankNumber(BankAccountNumber) != null){
-                System.out.println("Account with this bank account number already exists");
-                return null;
+        i = 1;
+        for(ServiceProviderType serviceProviderType : ServiceProviderType.values()){
+            if(i == choice){
+                type = serviceProviderType;
+                break;
             }
+            i++;
         }
-        else if(choice == 2)
-            type = ServiceProviderType.WALLET;
         HashMap<String, ServiceProvider> providers = dbManager.getServiceProviders(type);
         System.out.println("Choose your provider : ");
-        int i = 1;
+        i = 1;
         for(String providerName : providers.keySet()){
             System.out.println(i + ". " + providerName);
             i++;
@@ -128,12 +128,20 @@ public class Manager {
             }
             i++;
         }
+
         Account account;
         if(type == ServiceProviderType.BANK){
+            System.out.print("Enter your account number : ");
+            BankAccountNumber = input.nextLine();
+            if(dbManager.getAccountBankNumber(BankAccountNumber) != null){
+                System.out.println("Account with this account number already exists");
+                return null;
+            }
             account = new BankAccount(0, mobileNumber, username, password , provider,BankAccountNumber);
         }else {
             account = new WalletAccount(0, mobileNumber, username, password, provider);
         }
+
         if(provider.verifyAccount(account)){
             System.out.println("Account verified successfully");
         }else{

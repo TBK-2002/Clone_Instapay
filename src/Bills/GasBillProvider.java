@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Random;
 
 public  class GasBillProvider extends BillProvider{
-    public GasBillProvider(String address, Account account, BillProviderType providerType) {
-        super(address, account, providerType);
+    public GasBillProvider(String name , String address, Account account, BillProviderType providerType) {
+        super(address, name, account, providerType);
     }
     @Override
     public boolean deduct(Bill bill) {

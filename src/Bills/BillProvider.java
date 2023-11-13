@@ -6,12 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 
 public abstract class BillProvider {
-    public BillProvider(String address, Account account, BillProviderType providerType) {
+    public BillProvider(String name, String address, Account account, BillProviderType providerType) {
+        this.name = name;
         this.address = address;
         this.account = account;
         this.providerType = providerType;
     }
 
+    protected String name;
     protected String address;
     private Account account;
     private BillProviderType providerType;
@@ -55,4 +57,11 @@ public abstract class BillProvider {
     }
     public abstract List<String> getRequiredData();
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

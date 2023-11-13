@@ -5,10 +5,14 @@ import Accounts.Account;
 
 public class ServiceProvider {
     private String address;
+    private String name;
     private ServiceProviderBehavior serviceProviderBehavior;
     public ServiceProviderType serviceProviderType;
 
-    public ServiceProvider(String address , ServiceProviderType serviceProviderType , ServiceProviderBehavior serviceProviderBehavior){
+
+
+    public ServiceProvider(String name, String address , ServiceProviderType serviceProviderType , ServiceProviderBehavior serviceProviderBehavior){
+        this.name = name;
         this.address = address;
         this.serviceProviderBehavior = serviceProviderBehavior;
         this.serviceProviderType = serviceProviderType;
@@ -42,5 +46,11 @@ public class ServiceProvider {
     public void setAddress(String address){
         this.address = address;
     }
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 }
