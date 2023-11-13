@@ -18,19 +18,20 @@ public class InMemoryDatabase implements Database {
         this.accounts = new HashMap<>();
         this.serviceProviders = new HashMap<>();
         this.billProviders = new HashMap<>();
+        demoData();
+    }
+    void demoData(){
+
         ServiceProviderBehavior serviceProviderBehavior1 = new Wallet();
         ServiceProviderBehavior serviceProviderBehavior2 = new Bank();
-
         ServiceProvider vodafoneCash = new ServiceProvider("VodafoneCash.API", ServiceProviderType.WALLET,serviceProviderBehavior1);
         ServiceProvider fawry = new ServiceProvider("Fawry.API", ServiceProviderType.WALLET,serviceProviderBehavior1);
         ServiceProvider orangeCash = new ServiceProvider("OrangeCash.API", ServiceProviderType.WALLET,serviceProviderBehavior1);
-        ServiceProvider CIBWallet = new ServiceProvider(" CIBWallet.API", ServiceProviderType.WALLET,serviceProviderBehavior1);
-
+        ServiceProvider CIBWallet = new ServiceProvider("CIBWallet.API", ServiceProviderType.WALLET,serviceProviderBehavior1);
         ServiceProvider CIB = new ServiceProvider("CIB.API", ServiceProviderType.BANK,serviceProviderBehavior2);
         ServiceProvider HSBC = new ServiceProvider("HSBC.API", ServiceProviderType.BANK,serviceProviderBehavior2);
         ServiceProvider Ahly = new ServiceProvider("Ahly.API", ServiceProviderType.BANK,serviceProviderBehavior2);
         ServiceProvider Misr = new ServiceProvider("Misr.API", ServiceProviderType.BANK,serviceProviderBehavior2);
-
         serviceProviders.put(vodafoneCash.getAddress(),vodafoneCash);
         serviceProviders.put(fawry.getAddress(),fawry);
         serviceProviders.put(orangeCash.getAddress(),orangeCash);
@@ -39,6 +40,8 @@ public class InMemoryDatabase implements Database {
         serviceProviders.put(HSBC.getAddress(),HSBC);
         serviceProviders.put(Ahly.getAddress(),Ahly);
         serviceProviders.put(Misr.getAddress(),Misr);
+
+
     }
     @Override
     public Account getAccount(String username) {

@@ -54,6 +54,10 @@ public class Manager {
         String password = input.nextLine();
         System.out.print("Enter your mobile number : ");
         String mobileNumber = input.nextLine();
+        if(dbManager.getAccountMobileNumber(mobileNumber) != null){
+            System.out.println("Account with this mobile number already exists");
+            return null;
+        }
         String OTP = generateOTP();
         System.out.print("Enter OTP which sent to your phone : ");
         String userOTP = input.nextLine();
@@ -88,6 +92,10 @@ public class Manager {
             type = ServiceProviderType.BANK;
             System.out.print("Enter your bank account number : ");
             BankAccountNumber = input.nextLine();
+            if(dbManager.getAccountBankNumber(BankAccountNumber) != null){
+                System.out.println("Account with this bank account number already exists");
+                return null;
+            }
         }
         else if(choice == 2)
             type = ServiceProviderType.WALLET;
@@ -146,8 +154,12 @@ public class Manager {
         if(toAccount == null){
             toAccount = dbManager.getAccountMobileNumber(data);
         }
-        if(toAccount == null){
+        if(toAccount == null || toAccount.getProvider().getServiceProviderType() == ServiceProviderType.WALLET){
             System.out.println("Account not found");
+            return;
+        }
+        if(toAccount == loggerdInAccount){
+            System.out.println("You can't transfer to yourself");
             return;
         }
         System.out.print("Enter the amount : ");
@@ -163,8 +175,12 @@ public class Manager {
         System.out.print("Enter the phone number : ");
         String data = input.nextLine();
         Account toAccount = dbManager.getAccountMobileNumber(data);
-        if (toAccount == null){
+        if (toAccount == null || toAccount.getProvider().getServiceProviderType() == ServiceProviderType.BANK){
             System.out.println("Account not found");
+            return;
+        }
+        if(toAccount == loggerdInAccount){
+            System.out.println("You can't transfer to yourself");
             return;
         }
         System.out.print("Enter the amount : ");
