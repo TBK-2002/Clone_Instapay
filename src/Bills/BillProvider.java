@@ -9,4 +9,19 @@ public abstract class BillProvider {
 
     public abstract boolean deduct(Bill bill);
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public BillProviderType getBillProviderType() {
+        return providerType;
+    }
+
+    public void setBillProviderType(BillProviderType providerType) {
+        this.providerType = providerType;
+    }
 }
