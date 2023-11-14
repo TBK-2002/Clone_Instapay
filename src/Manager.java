@@ -163,7 +163,7 @@ public class Manager {
         if(toAccount == null){
             toAccount = dbManager.getAccountMobileNumber(data);
         }
-        if(toAccount == null || toAccount.getProvider().getServiceProviderType() == ServiceProviderType.WALLET){
+        if(toAccount == null || toAccount.getProvider().getServiceProviderType() != ServiceProviderType.BANK){
             System.out.println("Account not found");
             return;
         }
@@ -184,7 +184,7 @@ public class Manager {
         System.out.print("Enter the phone number : ");
         String data = input.nextLine();
         Account toAccount = dbManager.getAccountMobileNumber(data);
-        if (toAccount == null || toAccount.getProvider().getServiceProviderType() == ServiceProviderType.BANK){
+        if (toAccount == null || toAccount.getProvider().getServiceProviderType() != ServiceProviderType.WALLET){
             System.out.println("Account not found");
             return;
         }
