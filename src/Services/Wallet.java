@@ -2,42 +2,37 @@ package Services;
 
 import Accounts.Account;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Wallet implements ServiceProviderBehavior {
 
+
     @Override
     public boolean transfer(Account from, Account to, String address, double amount) {
-        String mobileNumber = to.getVerficicationData().get("mobileNumber");
-        double  currBalance = inquire(from);
-
-
-        if(to.getVerficicationData().containsKey("accountNumber")){
-            System.out.println("Error: Cannot transfer from Wallet to Bank Account");
-            return false;
-        }
-        else if(to.getVerficicationData().containsKey("providerAccountNumber")){
-            if(amount > currBalance){
-                System.out.println("Insufficient Balance");
-                return false;
+        if(from.getProvider().getAvailableTransfers().contains(to.getProvider().serviceProviderType)){
+            System.out.println("Transferring to" + to.getProvider().getServiceProviderType().toString() + "account");
+            if(!to.getVerficicationData().isEmpty()){
+                System.out.println("With the following data");
+                for(String k : to.getVerficicationData().keySet()){
+                    System.out.println(k + ": " + to.getVerficicationData().get(k));
+                }
+                return true;
             }
-            return true;
         }
-        else{
-            if(amount > currBalance){
-                System.out.println("Insufficient Balance");
-                return false;
-            }
-            System.out.println("Transfering to Wallet with mobile number: " + mobileNumber);
-            return true;
-        }
-
+        return false;
     }
-
     @Override
     public double inquire(Account acc) {
         Random rand = new Random();
         return rand.nextFloat() * 1000;
+    }
+    @Override
+    public ArrayList<ServiceProviderType> getAvailableTransfers(){
+       ArrayList<ServiceProviderType> options = new ArrayList<>();
+       options.add(ServiceProviderType.WALLET);
+       return options;
     }
 
     @Override
@@ -45,3 +40,4 @@ public class Wallet implements ServiceProviderBehavior {
         return true;
     }
 }
+

@@ -8,6 +8,7 @@ import Services.*;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class InMemoryDatabase implements Database {
     protected HashMap<String,Account> accounts;
     protected HashMap<String,ServiceProvider> serviceProviders;
@@ -40,13 +41,13 @@ public class InMemoryDatabase implements Database {
         addServiceProvider(HSBC);
         addServiceProvider(Ahly);
         addServiceProvider(Misr);
-        Account northDeltaAccount = new BillProviderAccount(122,"0123456789","northDelta","123456",CIB, "123456");
+        Account northDeltaAccount = new BillProviderAccount(122,"0123456789","northDelta","123456",fawry, "123456");
         BillProvider northDelta = new ElectricityBillProvider("northDelta","northDelta",northDeltaAccount,BillProviderType.ELECTRICITY);
-        Account southDeltaAccount = new BillProviderAccount(123,"0123456789","southDelta","123456",CIB, "12345");
+        Account southDeltaAccount = new BillProviderAccount(123,"0123456789","southDelta","123456",fawry, "12345");
         BillProvider southDelta = new ElectricityBillProvider("southDelta","southDelta",southDeltaAccount,BillProviderType.ELECTRICITY);
-        Account petrojet = new BillProviderAccount(124,"0123456789","northCairo","123456",CIB, "1234");
+        Account petrojet = new BillProviderAccount(124,"0123456789","northCairo","123456",fawry, "1234");
         BillProvider northCairo = new GasBillProvider("northCairo","northCairo",petrojet,BillProviderType.GAS);
-        Account aquaDelta = new BillProviderAccount(124,"0123456789","northCairo","123456",CIB, "1234");
+        Account aquaDelta = new BillProviderAccount(124,"0123456789","northCairo","123456",fawry, "1234");
         BillProvider southSinai = new WaterBillProvider("southSinai","southSinai",aquaDelta,BillProviderType.WATER);
         addBillProvider(northDelta);
         addBillProvider(southDelta);

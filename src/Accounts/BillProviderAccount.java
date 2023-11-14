@@ -12,8 +12,6 @@ public class BillProviderAccount extends Account {
         super(accountId, mobileNumber, userName, password, provider);
         this.accountNumber = accountNumber;
         verficicationData = new HashMap<>();
-        verficicationData.put("mobileNumber",this.mobileNumber);
-        verficicationData.put("providerAccountNumber",this.accountNumber);
     }
 
     public String getAccountNumber() {
