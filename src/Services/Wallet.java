@@ -24,6 +24,12 @@ public class Wallet implements ServiceProviderBehavior {
         return false;
     }
     @Override
+    public ArrayList<String> getRequiredData() {
+        ArrayList<String> requiredData = new ArrayList<>();
+        requiredData.add("phone number");
+        return requiredData;
+    }
+    @Override
     public double inquire(Account acc) {
         Random rand = new Random();
         return rand.nextFloat() * 1000;

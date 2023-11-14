@@ -8,6 +8,9 @@ import java.util.Random;
 
 public class Bank implements ServiceProviderBehavior {
 
+    public Bank(){
+
+    }
     @Override
     public boolean transfer(Account from, Account to, String address, double amount) {
         if(from.getProvider().getAvailableTransfers().contains(to.getProvider().serviceProviderType)){
@@ -34,6 +37,14 @@ public class Bank implements ServiceProviderBehavior {
         options.add(ServiceProviderType.BANK);
         options.add(ServiceProviderType.WALLET);
         return options;
+    }
+
+    @Override
+    public ArrayList<String> getRequiredData() {
+        ArrayList<String> requiredData = new ArrayList<>();
+        requiredData.add("account number");
+        requiredData.add("phone number");
+        return requiredData;
     }
 
     @Override

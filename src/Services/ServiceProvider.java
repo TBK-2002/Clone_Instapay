@@ -9,13 +9,14 @@ public class ServiceProvider {
     private ServiceProviderBehavior serviceProviderBehavior;
     public ServiceProviderType serviceProviderType;
     private List<ServiceProviderType>availableTransfers;
-
+    protected List<String> requiredData;
     public ServiceProvider(String name, String address , ServiceProviderType serviceProviderType , ServiceProviderBehavior serviceProviderBehavior){
         this.name = name;
         this.address = address;
         this.serviceProviderBehavior = serviceProviderBehavior;
         this.serviceProviderType = serviceProviderType;
         this.availableTransfers = this.serviceProviderBehavior.getAvailableTransfers();
+        this.requiredData = this.serviceProviderBehavior.getRequiredData();
     }
     public boolean transfer(Account from, Account to, double amount){
         return serviceProviderBehavior.transfer(from,to,address,amount);
@@ -54,8 +55,11 @@ public class ServiceProvider {
         return name;
     }
 
-
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<String> getRequiredData() {
+        return requiredData;
     }
 }

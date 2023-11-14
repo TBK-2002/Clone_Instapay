@@ -52,7 +52,19 @@ public class Manager {
         System.out.print("Enter your username : ");
         String username = input.nextLine();
         System.out.print("Enter your password : ");
+
         String password = input.nextLine();
+
+        // complex password using regex
+        String regex = "^(?=.*[0-9])"
+                + "(?=.*[a-z])(?=.*[A-Z])"
+                + "(?=.*[@#$%^&+!=])"
+                + "(?=\\S+$).{8,20}$";
+        while (!password.matches(regex)){
+            System.out.println("Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit and one special character");
+            System.out.print("Enter your password : ");
+            password = input.nextLine();
+        }
         System.out.print("Enter your mobile number : ");
         String mobileNumber = input.nextLine();
         if(dbManager.getAccountMobileNumber(mobileNumber) != null){
@@ -154,51 +166,6 @@ public class Manager {
     }
     private void logout(){
         loggerdInAccount = null;
-    }
-    private void transferToBank(){
-        System.out.println("_Transfer to Bank Account_");
-        System.out.print("Enter the account number or mobile number : ");
-        String data = input.nextLine();
-        Account toAccount = dbManager.getAccountBankNumber(data);
-        if(toAccount == null){
-            toAccount = dbManager.getAccountMobileNumber(data);
-        }
-        if(toAccount == null || toAccount.getProvider().getServiceProviderType() != ServiceProviderType.BANK){
-            System.out.println("Account not found");
-            return;
-        }
-        if(toAccount == loggerdInAccount){
-            System.out.println("You can't transfer to yourself");
-            return;
-        }
-        System.out.print("Enter the amount : ");
-        double amount = Double.parseDouble(input.nextLine());
-        if(loggerdInAccount.getProvider().transfer(loggerdInAccount,toAccount,amount)){
-            System.out.println("Transfer done successfully");
-        }else{
-            System.out.println("Transfer failed");
-        }
-    }
-    private void transferToWallet(){
-        System.out.println("____Transfer to Wallet____");
-        System.out.print("Enter the phone number : ");
-        String data = input.nextLine();
-        Account toAccount = dbManager.getAccountMobileNumber(data);
-        if (toAccount == null || toAccount.getProvider().getServiceProviderType() != ServiceProviderType.WALLET){
-            System.out.println("Account not found");
-            return;
-        }
-        if(toAccount == loggerdInAccount){
-            System.out.println("You can't transfer to yourself");
-            return;
-        }
-        System.out.print("Enter the amount : ");
-        double amount = Double.parseDouble(input.nextLine());
-        if(loggerdInAccount.getProvider().transfer(loggerdInAccount,toAccount,amount)) {
-            System.out.println("Transfer done successfully");
-        }else{
-            System.out.println("Transfer failed");
-        }
     }
     private void inquireBalance(){
         System.out.println("_____Inquire Balance_____");
@@ -315,62 +282,6 @@ public class Manager {
                 break;
         }
     }
-    private void bankAccountMenu(){
-        System.out.println("1. Transfer to another bank account");
-        System.out.println("2. Transfer to wallet");
-        System.out.println("3. Inquire Balance");
-        System.out.println("4. Pay bill");
-        System.out.println("5. Logout");
-        System.out.print("Enter your choice : ");
-        int choice = Integer.parseInt(input.nextLine());
-        while (choice > 5 || choice < 1){
-            System.out.println("Wrong choice , try again : ");
-            choice = Integer.parseInt(input.nextLine());
-        }
-        switch (choice){
-            case 1:
-                transferToBank();
-                break;
-            case 2:
-                transferToWallet();
-                break;
-            case 3:
-                inquireBalance();
-                break;
-            case 4:
-                payBill();
-                break;
-            case 5:
-                logout();
-                break;
-        }
-    }
-    private void walletAccountMenu(){
-        System.out.println("1. Transfer to another wallet");
-        System.out.println("2. Inquire Balance");
-        System.out.println("3. Pay bill");
-        System.out.println("4. Logout");
-        System.out.print("Enter your choice : ");
-        int choice = Integer.parseInt(input.nextLine());
-        while (choice > 4 || choice < 1){
-            System.out.println("Wrong choice , try again : ");
-            choice = Integer.parseInt(input.nextLine());
-        }
-        switch (choice){
-            case 1:
-                transferToWallet();
-                break;
-            case 2:
-                inquireBalance();
-                break;
-            case 3:
-                payBill();
-                break;
-            case 4:
-                logout();
-                break;
-        }
-    }
     private void transferMenu(){
         int i = 1;
         for(ServiceProviderType spt : loggerdInAccount.getProvider().getAvailableTransfers()){
@@ -382,14 +293,48 @@ public class Manager {
             System.out.println("Wrong choice , try again : ");
             choice = Integer.parseInt(input.nextLine());
         }
-        ServiceProviderType chosenSPT;
+        ServiceProviderType chosenSPT = null;
         i = 1;
         for(ServiceProviderType spt : loggerdInAccount.getProvider().getAvailableTransfers()){
             if(i == choice)
                 chosenSPT = spt;
             i++;
         }
-
+        ServiceProvider chosenSP = null;
+        for(ServiceProvider sp : dbManager.getServiceProviders(chosenSPT).values()){
+           chosenSP = sp;
+           break;
+        }
+        if(chosenSP == null){
+            System.out.println("No account with this service provider found");
+            return;
+        }
+        Account toAccount = null;
+        for(String requiredData : chosenSP.getRequiredData()){
+            System.out.print("Enter " + requiredData + " : ");
+            String value = input.nextLine();
+            Account temp = dbManager.getAccountWith(value);
+            if(toAccount == null)
+                toAccount = temp;
+            else if(toAccount != temp){
+                System.out.println("Data doesn't match");
+            }
+        }
+        if (toAccount == null){
+            System.out.println("Account not found");
+            return;
+        }
+        if(toAccount == loggerdInAccount){
+            System.out.println("You can't transfer to yourself");
+            return;
+        }
+        System.out.print("Enter the amount : ");
+        double amount = Double.parseDouble(input.nextLine());
+        if(loggerdInAccount.getProvider().transfer(loggerdInAccount,toAccount,amount)) {
+            System.out.println("Transfer done successfully");
+        }else{
+            System.out.println("Transfer failed");
+        }
     }
     private void loggedInMenu(){
         System.out.println("1. Transfer");
@@ -421,10 +366,8 @@ public class Manager {
         System.out.println("________Main Menu________");
         if(loggerdInAccount == null){
             unLoggedInMenu();
-        }else if(loggerdInAccount.getProvider().getServiceProviderType() == ServiceProviderType.BANK) {
-            bankAccountMenu();
         }else{
-            walletAccountMenu();
+            loggedInMenu();
         }
     }
 }
