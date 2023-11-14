@@ -163,7 +163,7 @@ public class Manager {
         if(toAccount == null){
             toAccount = dbManager.getAccountMobileNumber(data);
         }
-        if(toAccount == null || toAccount.getProvider().getServiceProviderType() == ServiceProviderType.WALLET){
+        if(toAccount == null || toAccount.getProvider().getServiceProviderType() != ServiceProviderType.BANK){
             System.out.println("Account not found");
             return;
         }
@@ -184,7 +184,7 @@ public class Manager {
         System.out.print("Enter the phone number : ");
         String data = input.nextLine();
         Account toAccount = dbManager.getAccountMobileNumber(data);
-        if (toAccount == null || toAccount.getProvider().getServiceProviderType() == ServiceProviderType.BANK){
+        if (toAccount == null || toAccount.getProvider().getServiceProviderType() != ServiceProviderType.WALLET){
             System.out.println("Account not found");
             return;
         }
@@ -359,6 +359,52 @@ public class Manager {
         switch (choice){
             case 1:
                 transferToWallet();
+                break;
+            case 2:
+                inquireBalance();
+                break;
+            case 3:
+                payBill();
+                break;
+            case 4:
+                logout();
+                break;
+        }
+    }
+    private void transferMenu(){
+        int i = 1;
+        for(ServiceProviderType spt : loggerdInAccount.getProvider().getAvailableTransfers()){
+            System.out.println(i + ". " + spt.toString());
+            i++;
+        }
+        int choice = Integer.parseInt(input.nextLine());
+        while (choice > i-1 || choice < 1){
+            System.out.println("Wrong choice , try again : ");
+            choice = Integer.parseInt(input.nextLine());
+        }
+        ServiceProviderType chosenSPT;
+        i = 1;
+        for(ServiceProviderType spt : loggerdInAccount.getProvider().getAvailableTransfers()){
+            if(i == choice)
+                chosenSPT = spt;
+            i++;
+        }
+
+    }
+    private void loggedInMenu(){
+        System.out.println("1. Transfer");
+        System.out.println("2. Inquire Balance");
+        System.out.println("3. Pay bill");
+        System.out.println("4. Logout");
+        System.out.print("Enter your choice : ");
+        int choice = Integer.parseInt(input.nextLine());
+        while (choice > 4 || choice < 1){
+            System.out.println("Wrong choice , try again : ");
+            choice = Integer.parseInt(input.nextLine());
+        }
+        switch (choice){
+            case 1:
+                transferMenu();
                 break;
             case 2:
                 inquireBalance();

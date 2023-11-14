@@ -8,7 +8,6 @@ public class Bill {
     private double amount;
     private BillProvider provider;
     private Account account;
-
     private HashMap<String, String> deductionData;
 
     public Bill(double amount, BillProvider provider, Account account, HashMap<String, String> deductionData) {
