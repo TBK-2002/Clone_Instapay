@@ -9,7 +9,7 @@ public class ServiceProvider {
     private ServiceProviderBehavior serviceProviderBehavior;
     public ServiceProviderType serviceProviderType;
     private List<ServiceProviderType>availableTransfers;
-    protected List<String> requiredData;
+    private List<String> requiredData;
     public ServiceProvider(String name, String address , ServiceProviderType serviceProviderType , ServiceProviderBehavior serviceProviderBehavior){
         this.name = name;
         this.address = address;

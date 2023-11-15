@@ -12,9 +12,9 @@ import java.util.Map;
 
 
 public class InMemoryDatabase implements Database {
-    protected HashMap<String,Account> accounts;
-    protected HashMap<String,ServiceProvider> serviceProviders;
-    protected HashMap<String,BillProvider>billProviders;
+    private HashMap<String,Account> accounts;
+    private HashMap<String,ServiceProvider> serviceProviders;
+    private HashMap<String,BillProvider>billProviders;
 
 
     public InMemoryDatabase() {
