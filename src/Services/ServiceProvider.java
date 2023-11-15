@@ -19,6 +19,11 @@ public class ServiceProvider {
         this.requiredData = this.serviceProviderBehavior.getRequiredData();
     }
     public boolean transfer(Account from, Account to, double amount){
+        double balance = from.getProvider().inquire(from);
+        if(balance < amount){
+            System.out.println("Insufficient balance");
+            return false;
+        }
         return serviceProviderBehavior.transfer(from,to,address,amount);
     }
     public List<ServiceProviderType> getAvailableTransfers(){

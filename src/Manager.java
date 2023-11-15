@@ -236,7 +236,7 @@ public class Manager {
         }
         Bill bill = provider.createBill(loggerdInAccount, data);
         if(bill == null){
-            System.out.println("Too many wrong data");
+            System.out.println("Your Bill is not found.");
             return;
         }
         System.out.println("Your bill amount is : " + bill.getAmount());
@@ -318,6 +318,7 @@ public class Manager {
                 toAccount = temp;
             else if(toAccount != temp){
                 System.out.println("Data doesn't match");
+                return;
             }
         }
         if (toAccount == null){
