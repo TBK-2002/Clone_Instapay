@@ -1,4 +1,5 @@
 import Accounts.Account;
+import Accounts.AccountFactory;
 import Accounts.BankAccount;
 import Accounts.WalletAccount;
 import Bills.Bill;
@@ -67,7 +68,7 @@ public class Manager {
         }
         System.out.print("Enter your mobile number : ");
         String mobileNumber = input.nextLine();
-        if(dbManager.getAccountMobileNumber(mobileNumber) != null){
+        if(dbManager.getAccountWith(mobileNumber) != null){
             System.out.println("Account with this mobile number already exists");
             return null;
         }
@@ -141,19 +142,23 @@ public class Manager {
             i++;
         }
 
-        Account account;
-        if(type == ServiceProviderType.BANK){
-            System.out.print("Enter your account number : ");
-            BankAccountNumber = input.nextLine();
-            if(dbManager.getAccountBankNumber(BankAccountNumber) != null){
-                System.out.println("Account with this account number already exists");
+        HashMap<String,String> data = new HashMap<>();
+        for(String requiredData : provider.getRequiredData()){
+            if(requiredData.equals("mobile number")) {
+                continue;
+            }
+            System.out.print("Enter " + requiredData + " : ");
+            String value = input.nextLine();
+            if(dbManager.getAccountWith(value) != null){
+                System.out.println("Account with this " + requiredData + " already exists");
                 return null;
             }
-            account = new BankAccount(0, mobileNumber, username, password , provider,BankAccountNumber);
-        }else {
-            account = new WalletAccount(0, mobileNumber, username, password, provider);
+            data.put(requiredData, value);
         }
-
+        data.put("mobile Number",mobileNumber);
+        data.put("username",username);
+        data.put("password",password);
+        Account account = AccountFactory.createAccount(provider,data);
         if(provider.verifyAccount(account)){
             System.out.println("Account verified successfully");
         }else{

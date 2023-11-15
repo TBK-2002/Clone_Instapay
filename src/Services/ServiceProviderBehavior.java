@@ -10,6 +10,5 @@ public interface ServiceProviderBehavior {
     public List<ServiceProviderType> getAvailableTransfers();
     public double inquire(Account acc);
     public ArrayList<String> getRequiredData() ;
-
     public boolean verifyAccount(Account acc);
 }

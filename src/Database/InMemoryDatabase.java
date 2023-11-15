@@ -1,7 +1,9 @@
 package Database;
 
 import Accounts.Account;
+import Accounts.BankAccount;
 import Accounts.BillProviderAccount;
+import Accounts.WalletAccount;
 import Bills.*;
 import Services.*;
 
@@ -54,6 +56,15 @@ public class InMemoryDatabase implements Database {
         addBillProvider(northCairo);
         addBillProvider(southSinai);
 
+
+        Account account1 = new BankAccount(123,"010","bankuser1","1234",CIB, "123");
+        Account account2 = new BankAccount(124,"011","bankuser2","1234",Misr, "456");
+        Account account3 = new WalletAccount(125,"012","walletuser1","1234",vodafoneCash);
+        Account account4 = new WalletAccount(125,"015","walletuser2","1234",fawry);
+        addAccount(account1);
+        addAccount(account2);
+        addAccount(account3);
+        addAccount(account4);
     }
     @Override
     public Account getAccount(String username) {
@@ -109,21 +120,4 @@ public class InMemoryDatabase implements Database {
         return serviceProviders1;
     }
 
-    @Override
-    public Account getAccountBankNumber(String bankNumber) {
-        for (Map.Entry<String,Account> entry: accounts.entrySet()){
-            if(entry.getValue().getVerficicationData().get("accountNumber").equals(bankNumber))
-                return entry.getValue();
-        }
-        return null;
-    }
-
-    @Override
-    public Account getAccountMobileNumber(String mobileNumber) {
-        for (Map.Entry<String,Account> entry: accounts.entrySet()){
-            if(entry.getValue().getVerficicationData().get("mobileNumber").equals(mobileNumber))
-                return entry.getValue();
-        }
-        return null;
-    }
 }

@@ -26,7 +26,7 @@ public class Wallet implements ServiceProviderBehavior {
     @Override
     public ArrayList<String> getRequiredData() {
         ArrayList<String> requiredData = new ArrayList<>();
-        requiredData.add("phone number");
+        requiredData.add("mobile number");
         return requiredData;
     }
     @Override

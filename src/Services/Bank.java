@@ -43,7 +43,7 @@ public class Bank implements ServiceProviderBehavior {
     public ArrayList<String> getRequiredData() {
         ArrayList<String> requiredData = new ArrayList<>();
         requiredData.add("account number");
-        requiredData.add("phone number");
+        requiredData.add("mobile number");
         return requiredData;
     }
 
