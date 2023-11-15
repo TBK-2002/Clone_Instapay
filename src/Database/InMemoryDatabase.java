@@ -56,7 +56,6 @@ public class InMemoryDatabase implements Database {
         addBillProvider(northCairo);
         addBillProvider(southSinai);
 
-
         Account account1 = new BankAccount(123,"010","bankuser1","1234",CIB, "123");
         Account account2 = new BankAccount(124,"011","bankuser2","1234",Misr, "456");
         Account account3 = new WalletAccount(125,"012","walletuser1","1234",vodafoneCash);
