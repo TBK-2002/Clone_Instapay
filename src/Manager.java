@@ -155,7 +155,7 @@ public class Manager {
             }
             data.put(requiredData, value);
         }
-        data.put("mobile Number",mobileNumber);
+        data.put("mobile number",mobileNumber);
         data.put("username",username);
         data.put("password",password);
         Account account = AccountFactory.createAccount(provider,data);

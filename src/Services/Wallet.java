@@ -12,14 +12,14 @@ public class Wallet implements ServiceProviderBehavior {
     @Override
     public boolean transfer(Account from, Account to, String address, double amount) {
         if(from.getProvider().getAvailableTransfers().contains(to.getProvider().serviceProviderType)){
-            System.out.println("Transferring to" + to.getProvider().getServiceProviderType().toString() + "account");
             if(!to.getVerficicationData().isEmpty()){
+                System.out.println("Transferring to" + to.getProvider().getServiceProviderType().toString() + "account");
                 System.out.println("With the following data");
                 for(String k : to.getVerficicationData().keySet()){
                     System.out.println(k + ": " + to.getVerficicationData().get(k));
                 }
-                return true;
             }
+            return true;
         }
         return false;
     }

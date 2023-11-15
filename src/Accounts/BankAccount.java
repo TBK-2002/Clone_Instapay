@@ -13,8 +13,8 @@ public class BankAccount extends Account {
         super(accountId, mobileNumber, userName, password , provider);
         this.accountNumber = accountNumber;
         verficicationData = new HashMap<>();
-        verficicationData.put("mobileNumber",this.mobileNumber);
-        verficicationData.put("accountNumber",this.accountNumber);
+        verficicationData.put("mobile number",this.mobileNumber);
+        verficicationData.put("account number",this.accountNumber);
     }
 
     public String getAccountNumber() {

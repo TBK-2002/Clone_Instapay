@@ -11,7 +11,7 @@ public class WalletAccount extends Account {
     public WalletAccount(int accountId, String mobileNumber, String userName, String password, ServiceProvider provider) {
         super(accountId, mobileNumber, userName, password, provider);
         verficicationData = new HashMap<>();
-        verficicationData.put("mobileNumber",this.mobileNumber);
+        verficicationData.put("mobile number",this.mobileNumber);
 
     }
 

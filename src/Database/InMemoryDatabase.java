@@ -72,10 +72,11 @@ public class InMemoryDatabase implements Database {
     }
 
     public Account getAccountWith(String value){
-        for (Map.Entry<String,Account> entry: accounts.entrySet()){
-            for (Map.Entry<String,String> entry1: entry.getValue().getVerficicationData().entrySet()){
-                if(entry1.getValue().equals(value))
-                    return entry.getValue();
+        for (String key: accounts.keySet()){
+            for (String key2 : accounts.get(key).getVerficicationData().keySet()){
+                String temp= accounts.get(key).getVerficicationData().get(key2);
+                if(temp.equals(value))
+                    return accounts.get(key);
             }
         }
         return null;
