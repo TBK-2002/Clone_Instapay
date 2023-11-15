@@ -30,7 +30,7 @@ public class Manager {
         String username = input.nextLine();
         System.out.print("Enter your password : ");
         String password = input.nextLine();
-        Account account = dbManager.getAccountWith(username);
+        Account account = dbManager.getAccount(username);
         if(account == null){
             System.out.println("Account not found");
             return null;

@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 public interface Database {
 
+    public Account getAccount(String username);
     public Account getAccountWith(String value);
     public void addAccount(Account account);
     public void addBillProvider(BillProvider billProvider);
