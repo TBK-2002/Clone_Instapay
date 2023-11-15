@@ -66,10 +66,7 @@ public class InMemoryDatabase implements Database {
         addAccount(account3);
         addAccount(account4);
     }
-    @Override
-    public Account getAccount(String username) {
-        return accounts.get(username);
-    }
+
 
     public Account getAccountWith(String value){
         for (Map.Entry<String,Account> entry: accounts.entrySet()){
